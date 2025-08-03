@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-wallets
+      author: Viktor
+      changes:
+        - createTable:
+            tableName: wallets
+            columns:
+              - column:
+                  name: wallet_id
+                  type: uuid
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: varchar
+                  constraints:
+                    nullable: false
