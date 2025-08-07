@@ -21,6 +21,7 @@ public class WalletController {
     @PostMapping("/wallet")
     public ResponseEntity<WalletResponseDto> changeWalletBalance(@Validated @RequestBody WalletRequestDto requestDto) {
         WalletResponseDto responseDto = walletConverter.entityToDto(walletService.updateWalletBalance(requestDto));
+
         return ResponseEntity.ok(responseDto);
     }
 
