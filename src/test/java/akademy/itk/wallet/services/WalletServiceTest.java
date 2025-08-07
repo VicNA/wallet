@@ -54,12 +54,12 @@ public class WalletServiceTest {
         WalletRequestDto requestDto = new WalletRequestDto(
                 walletId, OperationType.WITHDRAW, BigDecimal.valueOf(2500));
 
-        when(repository.findById(walletId)).thenReturn(Optional.of(wallet));
+        when(repository.findByIdWithLock(walletId)).thenReturn(Optional.of(wallet));
 
         Wallet result = service.updateWalletBalance(requestDto);
 
         assertEquals(updateWallet, result);
-        verify(repository).findById(walletId);
+        verify(repository).findByIdWithLock(walletId);
     }
 
     @Test
@@ -72,12 +72,12 @@ public class WalletServiceTest {
         WalletRequestDto requestDto = new WalletRequestDto(
                 walletId, OperationType.DEPOSIT, BigDecimal.valueOf(2500));
 
-        when(repository.findById(walletId)).thenReturn(Optional.of(wallet));
+        when(repository.findByIdWithLock(walletId)).thenReturn(Optional.of(wallet));
 
         Wallet result = service.updateWalletBalance(requestDto);
 
         assertEquals(updateWallet, result);
-        verify(repository).findById(walletId);
+        verify(repository).findByIdWithLock(walletId);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class WalletServiceTest {
         String balance = "1000";
         Wallet wallet = new Wallet(walletId, balance);
 
-        when(repository.findById(walletId)).thenReturn(Optional.of(wallet));
+        when(repository.findByIdWithLock(walletId)).thenReturn(Optional.of(wallet));
 
         WalletRequestDto requestDto = new WalletRequestDto(
                 walletId, OperationType.WITHDRAW, BigDecimal.valueOf(5000));
@@ -106,6 +106,6 @@ public class WalletServiceTest {
                 WalletNotEnoughFundsException.class, () -> service.updateWalletBalance(requestDto));
 
         assertEquals("Недостаточно средств", exception.getMessage());
-        verify(repository).findById(walletId);
+        verify(repository).findByIdWithLock(walletId);
     }
 }

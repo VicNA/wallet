@@ -31,8 +31,7 @@ import java.util.UUID;
 
 import static akademy.itk.wallet.dtos.enums.OperationType.DEPOSIT;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -96,7 +95,7 @@ public class WalletControllerTest {
         mockMvc.perform(post("/api/v1/wallet").contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 // then
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof HttpMessageNotReadableException))
+                .andExpect(result -> assertInstanceOf(HttpMessageNotReadableException.class, result.getResolvedException()))
                 .andExpect(status().isBadRequest());
     }
 }
